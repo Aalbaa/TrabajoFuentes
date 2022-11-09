@@ -23,7 +23,7 @@ data_daily
 
 
 # Plot a climate stripes graph for a period of years for a station
-library(ggplot2) #no me deja instalarlo por no tener la version
+library(ggplot2) 
 
 climatestripes_station("2331", start = 1980, end = 2020) + theme(plot.title = element_text(size = 10))
 

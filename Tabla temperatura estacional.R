@@ -25,7 +25,9 @@ data_daily
 # Plot a climate stripes graph for a period of years for a station
 library(ggplot2) 
 
-climatestripes_station("2331", start = 1980, end = 2020) + theme(plot.title = element_text(size = 10))
+climatestripes_station("2331", start = 2015, end = 2021) + theme(plot.title = element_text(size = 10))
+climatestripes_station("1505", start = 2015, end = 2021) + theme(plot.title = element_text(size = 10))
+climatestripes_station("1014", start = 2015, end = 2021) + theme(plot.title = element_text(size = 10))
 
 
 # Plot a windrose showing the wind speed and direction for a station over a days period.
@@ -82,5 +84,7 @@ ggplot(all_last) +
 #Para ver la tabla
 stations
 str(stations)
-View(stations)
+View(stations) #NO USAR
 summary(stations)
+
+

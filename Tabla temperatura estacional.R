@@ -86,3 +86,5 @@ stations
 str(stations)
 View(stations) #NO USAR
 summary(stations)
+
+

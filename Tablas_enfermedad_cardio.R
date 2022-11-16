@@ -20,6 +20,8 @@ enf_cardio2_0 <- enf_cardio2_0[-1,]
 #Como todas las columnas me aparecen tipo caracter; modifico el total como valor numérico 
 enf_cardio2_0 <- transform(enf_cardio2_0, Total=as.numeric(Total))
 
+enf_cardio2_0$Total <- as.numeric(enf_cardio2_0$Total)
+
 View(enf_cardio2_0)
 str(enf_cardio2_0)
 

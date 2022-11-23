@@ -87,4 +87,17 @@ str(stations)
 View(stations) #NO USAR
 summary(stations)
 
+#se crea una nueva columna denomicada ccaa a partir de la columna provincia
+stations %>% 
+  mutate(ComunidadesAutónomas = 
+           case_when(provincia %in% c("BARCELONA", "TARRAGONA", "GIRONA") ~ 'CATALUÑA', 
+                     provincia %in% c("BURGOS", "SORIA", "SALAMANCA", "etc") ~ 'CyL',
+                     provincia %in% c("ASTURIAS") ~ 'ASTURIAS'
+                     
+                     
+                     ))
+  
+  
+
+
 

@@ -88,14 +88,33 @@ View(stations) #NO USAR
 summary(stations)
 
 #se crea una nueva columna denomicada ccaa a partir de la columna provincia
-stations %>% 
+tablaComunidades <- stations %>% 
   mutate(ComunidadesAutónomas = 
-           case_when(provincia %in% c("BARCELONA", "TARRAGONA", "GIRONA") ~ 'CATALUÑA', 
-                     provincia %in% c("BURGOS", "SORIA", "SALAMANCA", "etc") ~ 'CyL',
-                     provincia %in% c("ASTURIAS") ~ 'ASTURIAS'
+           case_when(provincia %in% c("BARCELONA", "TARRAGONA", "GIRONA","LLEIDA") ~ 'CATALUÑA', 
+                     provincia %in% c("BURGOS", "SORIA", "SALAMANCA", "LEON","AVILA","PALENCIA","SEGOVIA","VALLADOLID","ZAMORA") ~ 'CyL',
+                     provincia %in% c("ASTURIAS") ~ 'ASTURIAS',
+                     provincia %in% c("A CORUÑA","LUGO","OURENSE","PONTEVEDRA") ~ 'GALICIA',
+                     provincia %in% c("BIZKAIA","GIPUZKOA","ARABA/ALAVA") ~ 'PAIS VASCO',
+                     provincia %in% c("CANTABRIA") ~ 'CANTABRIA',
+                     provincia %in% c("NAVARRA") ~ 'NAVARRA',
+                     provincia %in% c("MADRID") ~ 'MADRID',
+                     provincia %in% c("CACERES","BADAJOZ") ~ 'EXTREMADURA',
+                     provincia %in% c("CUENCA","GUADALAJARA","TOLEDO","CIUDAD REAL","ALBACETE") ~ 'CLM',
+                     provincia %in% c("CORDOBA","HUELVA","CADIZ","GRANADA","JAEN","SEVILLA","ALMERIA","MALAGA") ~ 'ANDALUCIA',
+                     provincia %in% c("MELILLA") ~ 'MELILLA',
+                     provincia %in% c("ALICANTE","CASTELLON","VALENCIA") ~ 'VALENCIA',
+                     provincia %in% c("MURCIA") ~ 'MURCIA',
+                     provincia %in% c("TERUEL","HUESCA","ZARAGOZA") ~ 'ARAGON',
+                     provincia %in% c("LA RIOJA") ~ 'LA RIOJA',
+                     provincia %in% c("ILLES BALEARS") ~ 'ISLAS BALEARES',
+                     provincia %in% c("LAS PALMAS","STA. CRUZ DE TENERIFE") ~ 'ISLAS CANARIAS',
+                     provincia %in% c("CEUTA") ~ 'CEUTA',
+                     
                      
                      
                      ))
+
+View(tablaComunidades)
   
   
 

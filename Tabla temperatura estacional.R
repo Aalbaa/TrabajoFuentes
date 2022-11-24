@@ -17,9 +17,11 @@ data_observation
 
 summary(data_observation)
 
-## Get daily/annual climatology values 
-data_daily <- aemet_daily_period_all(start = 2020, end = 2021)
+
+## Get daily/annual climatology values, tabla completa
+data_daily <- aemet_daily_period_all(start = 2020, end = 2021) #MIRAR FECHAS COMPARAR CON LO DE ALBA
 data_daily
+View(data_daily)
 
 
 # Plot a climate stripes graph for a period of years for a station
@@ -88,7 +90,7 @@ View(stations) #NO USAR
 summary(stations)
 
 #se crea una nueva columna denomicada ccaa a partir de la columna provincia
-tablaComunidades <- stations %>% 
+tablaComunidades <- data_daily %>% 
   mutate(ComunidadesAutónomas = 
            case_when(provincia %in% c("BARCELONA", "TARRAGONA", "GIRONA","LLEIDA") ~ 'CATALUÑA', 
                      provincia %in% c("BURGOS", "SORIA", "SALAMANCA", "LEON","AVILA","PALENCIA","SEGOVIA","VALLADOLID","ZAMORA") ~ 'CyL',
@@ -116,6 +118,12 @@ tablaComunidades <- stations %>%
 
 View(tablaComunidades)
   
+#se agrupan los valores por comunidades autonomas (calculando el valor medio)
+tablasAgrupamientos <- tablaComunidades %>%
+  group_by(ComunidadesAutónomas) %>%
+  summarise(across(c(tmax,tmin, tmed,altitud), ~ mean(.x, na.rm = TRUE)))
+
+View(tablasAgrupamientos)
   
 
 

@@ -131,7 +131,7 @@ ggplot(data = tablasAgrupamientos, aes(x =tmax , y = ComunidadesAutónomas))+
   labs(x = "Promedio Temperatura", y = "Promedio riqueza de especies",title = 'Temperatura maxima por comunidad autonoma')
 
 #grafica de barras temperatura maxima por comunidad autonoma
-ggplot(data = tablasAgrupamientos, aes(x = tmax, y = ComunidadesAutónomas, group = 1)) +
+ggplot(data = tablasAgrupamientos, aes(x = tmax)) +
   geom_bar()
 
 

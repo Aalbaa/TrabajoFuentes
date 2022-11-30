@@ -28,3 +28,8 @@ plot(pressure)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+#poder cargar los datos si falla la página
+```{r , echo=FALSE}
+load("Input_objects/objetos_descargados.RData")
+```

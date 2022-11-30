@@ -21,7 +21,7 @@ summary(data_observation)
 ## Get daily/annual climatology values, tabla completa
 data_daily <- aemet_daily_period_all(start = 2020, end = 2021) #MIRAR FECHAS COMPARAR CON LO DE ALBA
 data_daily
-View(data_daily)
+#View(data_daily) #da error en html
 
 
 # Plot a climate stripes graph for a period of years for a station

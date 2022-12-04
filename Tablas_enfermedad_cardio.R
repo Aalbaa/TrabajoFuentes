@@ -1,31 +1,33 @@
 library(readr)
 enf_cardio2_0 <- read_delim("INPUT.DATA/enf_cardio2.0.csv", 
-                            delim = "\t", escape_double = FALSE, 
-                            col_names = FALSE, trim_ws = TRUE)
+                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(enf_cardio2_0)
 
 #Los datos de la tabla vienen en tantos por 100.000
 
-#pongo nombre a las columnas del dataframe 
-
-colnames(enf_cardio2_0)<- c('Causa Defuncion', 'Comunidades',
-                            'X3', 'X4', 'Año', 'Total')
-#elimino las columnas que NO nos interesan (X3: Edades y X4: Sexo) y la primera fila
-enf_cardio2_0$X3 <- NULL
-enf_cardio2_0$X4 <- NULL
-
-#enf_cardio2_0$Causa Defunción <-NULL   ya que sabemos q esta tabla solo contiene los datos en cuanto a enfermedades cardiovasculares
-
-enf_cardio2_0 <- enf_cardio2_0[-1,]
-
-#Como todas las columnas me aparecen tipo caracter; modifico el total como valor numérico 
-enf_cardio2_0 <- transform(enf_cardio2_0, Total=as.numeric(Total))
-
-enf_cardio2_0$Total <- as.numeric(enf_cardio2_0$Total)
-
-View(enf_cardio2_0)
 str(enf_cardio2_0)
 
-#gráfico de barras
+library(dplyr)
+datos <- select(enf_cardio2_0, 'Causa de defunción', 'Comunidades y Ciudades Autónomas', 'Periodo', 'Total')
+
+colnames(datos) <- c ('Causa_Defuncion' , 'Comunidades' , 'Periodo' , 'Total')
+str(datos)
+
 library(tidyverse)
-ggplot(data = enf_cardio2_0, aes(x = Comunidades, y = Total))
+
+#grafica 2020
+ggplot(datos, aes(x = Comunidades, y = Total, fill = Periodo[1])) +
+  geom_bar(stat = 'identity') +
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
+
+#gráfica 2019
+ggplot(datos, aes(x = Comunidades, y = Total, fill = Periodo[2])) +
+  geom_bar(stat = 'identity') +
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
+
+#gráfica 2018
+ggplot(datos, aes(x = Comunidades, y = Total, fill = Periodo[3])) +
+  geom_bar(stat = 'identity') +
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
+
 

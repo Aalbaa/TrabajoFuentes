@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Relación comunidades autónomas con defunción por enfermedades cardiacas
 
-Para poder ver si existe cierta relación entre las comunidaes autónomas y muertes por enfermdades cardiovasaculares, hemos cogido los datos con respecto a los años 2018, 2019 y 2020 y hemos creado un gráfico de barras.
+Para poder ver si existe cierta relación entre las comunidades autónomas y muertes por enfermedades cardiovasaculares, hemos cogido los datos con respecto a los años 2018, 2019 y 2020 y hemos creado un gráfico de barras.
 
 
 ```{r gr_barras, echo = FALSE}
@@ -27,13 +27,16 @@ gr_barras
 
 ```
 
-Aparte, en la págine INE de donde veinen los datos, hemos cogido las imagenes del mapa de España con respecto a cada año teniendo una idea más visual de los cambios q ha habido
+Aparte, en la págine INE, de donde veinen los datos, hemos cogido las imágenes del mapa de España con respecto a cada año teniendo una idea más visual geográficamente de los cambios q ha habido
 
-! [Mapa 2018](Input_objects/mapa2018.npg){withd = 60%}
-! [Mapa 2019](mapa2019.npg ){whithd = 60%}
-! [Mapa 2020](mapa2020.npg ){withd = 60%}
+<div>
+<p style = 'text-align:center;'>
+<img src="./Input_images/mapa2018.png" alt="Mapa 2018">
+</p>
+</div>
 
-**Conclusión** 
+
+**Conclusión** Se puede observar que ha habido un incremento de muertes en la zona sur y centro oeste mientras que en la zona noreste se aprecia una disminución
 
 ## R Markdown
 

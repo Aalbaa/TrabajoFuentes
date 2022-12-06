@@ -31,7 +31,7 @@ ggplot(datos, aes(x = Comunidades, y = Total, fill = fecha[3])) +
   theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
 
 #grafica dispersión todos los datos
-final <-  ggplot(datos, aes(x = Comunidades , y = Total)) +
+final <-  ggplot(datos, aes(x = ComunidadesAutónomas , y = Total)) +
   geom_point(aes (colour = factor(fecha))) +
   geom_smooth() +
   theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1)) 

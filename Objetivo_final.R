@@ -10,7 +10,7 @@ datos <- select(enf_cardio2_0, 'Causa de defunción', 'Comunidades y Ciudades Au
 
 colnames(datos) <- c ('Causa_Defuncion' , 'ComunidadesAutónomas' , 'fecha' , 'Total')
 str(datos)
-View(datos)
+
 
 datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '01 Andalucía'] <- 'ANDALUCIA'
 datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '02 Aragón'] <- 'ARAGON'
@@ -156,14 +156,14 @@ tabla2020 <- cbind(tmaxmin2020,fecha=c(2020))
 #se juntan las 3 tablas de los 3 años distintos
 tabla1819 = rbind(tabla2018, tabla2019)
 tabladefinitiva = rbind(tabla1819, tabla2020)
-View (tabladefinitiva)
+#View (tabladefinitiva)
 
 
 
 
 #unión tablas
 union <- merge(x = datos, y = tabladefinitiva, by=c('fecha', 'ComunidadesAutónomas'))
-View(union)
+#View(union)
 
 #gráfica
 library (tidyverse)
@@ -185,5 +185,5 @@ gr_min
 
 
 #install.packages("kableExtra", dependencies = TRUE)
-install.packages('DT')
+#install.packages('DT')
   

@@ -39,6 +39,14 @@ final <-  ggplot(datos, aes(x = Comunidades , y = Total)) +
 final
 
 ggplot(datos, aes(x = Comunidades, y = Total, fill = Periodo)) +
-  geom_bar(stat = 'identity') +
+  geom_bar(stat = 'identity', position='dodge') +
   theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
+
+#gráfica para el documento html 
   
+gr_barras <- ggplot(datos, aes( x= Comunidades, y = Total))+
+  geom_bar(aes(fill=factor(Periodo)), stat = 'identity', position = 'dodge')+
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
+
+gr_barras
+

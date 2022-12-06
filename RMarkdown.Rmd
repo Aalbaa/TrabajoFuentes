@@ -1,19 +1,22 @@
 ---
-title: "Enfermedades cardiovasculares y el tiempo"
-author: "Nuria Martinez y Alba Sanz"
-date: "2022-11-09"
-output: html_document
+title: "ENFERMEDADES CARDIOVASCULARES Y CLIMA"
+author: "Nuria Martinez Queralt y Alba Sanz González"
+date: "2022-12-07"
+output: 
+  html_document:
+    df_print: paged
+    theme: readable
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-#Objetivos
-##Relación comunidades autónomas con defunción por enfermedades cardiacas
-##Relación temeperaturas máx y mín por Comuniades
-##relación entre las dos anteriores
 
-# Relación comunidades autónomas con defunción por enfermedades cardiacas
+# 1. Relación comunidades autónomas con defunción por enfermedades cardiacas
 
 ```{r include = FALSE }
 library(readr)
@@ -51,8 +54,14 @@ datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '19 Melilla'] <- 'MELI
 library(tidyverse)
 ```
 
+A partir de los datos obtenidos en la siguiente gráfica, donde se incluye las comunidades autónomas, el año, la causa de defunción y el número total de defunciones por año y comunidad autónoma, se pueden obtener gráficos donde se relacionan dichas variables para sacar más información.
 
-Para poder ver si existe cierta relación entre las comunidades autónomas y muertes por enfermedades cardiovasaculares, hemos cogido los datos con respecto a los años 2018, 2019 y 2020 y hemos creado un gráfico de barras.
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(DT)
+DT::datatable(datos)
+```
+
+Para poder ver si existe cierta relación entre las comunidades autónomas y muertes por enfermedades cardiovasaculares, se han cogido los datos con respecto a los años 2018, 2019 y 2020 y creado un gráfico de barras y de dipersión.
 
 ```{r echo = TRUE}
 
@@ -79,7 +88,7 @@ plot(gr_barras)
 
 ```
 
-Aparte, en la págine INE, de donde veinen los datos, hemos cogido las imágenes del mapa de España con respecto a cada año teniendo una idea más visual geográficamente de los cambios q ha habido
+Aparte, en la págine INE, de donde vienen los datos, se han cogido las imágenes del mapa de España con respecto a cada año teniendo una idea más visual geográficamente de los cambios q ha habido.
 
 <div>
 <p style = 'text-align:center;'>
@@ -98,11 +107,10 @@ Aparte, en la págine INE, de donde veinen los datos, hemos cogido las imágenes
 </div>
 
 
+**Conclusión:** Se puede observar que ha habido un incremento de muertes en la zona sur y centro oeste mientras que en la zona noreste se aprecia una disminución
 
-**Conclusión** Se puede observar que ha habido un incremento de muertes en la zona sur y centro oeste mientras que en la zona noreste se aprecia una disminución
 
-
-#Relación temperaturas máx y mín por Comuniades
+# 2. Relación temperaturas máx y mín por Comuniades
 
 ```{r include = FALSE}
 library(remotes)
@@ -150,6 +158,7 @@ tablaComunidades <- data_daily %>%
 
 #install.packages('lubridate',dependencies=TRUE)
 library(lubridate)
+library(ggplot2)
 
 fecha2018 <- select(filter(tablaComunidades, year(tablaComunidades$fecha)==2018 ), ComunidadesAutónomas, fecha,tmax,tmin)
 
@@ -179,6 +188,12 @@ tabla1819 = rbind(tabla2018, tabla2019)
 tabladefinitiva = rbind(tabla1819, tabla2020)
 ```
 
+A partir de los datos obtenidos en la siguiente gráfica, donde se incluye las comunidades autónomas, el año, la temperatura máxima y la mínima se pueden obtener gráficos donde se relacionan dichas variables para sacar más información.
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(DT)
+DT::datatable(tabladefinitiva)
+```
+
 Relacionando los datos de la temperatura máxima y mínima, mediante distintos gráficos, se puede observar como varía la temperatura en función de la comunidad autónoma.
 
 
@@ -188,6 +203,7 @@ Relacionando los datos de la temperatura máxima y mínima, mediante distintos g
   labs(x = "tmax", y = "ComunidadesAutónomas",title = 'Temperatura máxima por comunidad autonoma')+
   theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
 ```
+
 En este primer gráfico de puntos, se observa la temperatura máxima por comunidad autónoma entre 2018 y 2020, y se puede ver que en muchas comunidades la temperatura máxima ha aumentado a lo largo del tiempo.
 
 ```{r echo=TRUE}
@@ -196,7 +212,7 @@ En este primer gráfico de puntos, se observa la temperatura máxima por comunid
   theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
 ```
 
-Como se ha comentado en el gráfico de puntos, con este gráfico de barras, efectivamnete se puede observar una subida de temperatura en todas las comunidades autónomas en 2019 y 2020 respecto a 2018
+Como se ha comentado en el gráfico de puntos, con este gráfico de barras, efectivamnete se puede observar una subida de temperatura en todas las comunidades autónomas en 2019 y 2020 respecto a 2018.
 
 
 ```{r echo=TRUE}
@@ -205,6 +221,7 @@ Como se ha comentado en el gráfico de puntos, con este gráfico de barras, efec
   labs(x = "tmax", y = "ComunidadesAutónomas",title = 'Temperatura mínima por comunidad autonoma')+
   theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
 ```
+
 En este gráfico de puntos, se observa la temperatura minima por comunidad autónoma entre 2018 y 2020, y se puede ver que, existe mucha diferencia en la temperatura mínima entre unas comunidades y otras. A su vez, también se aprecia una subida de temperatura en prácticamente todas las comunidades en el último año.
 
 
@@ -213,9 +230,10 @@ En este gráfico de puntos, se observa la temperatura minima por comunidad autó
   geom_bar(stat = 'identity', aes(fill = factor(fecha)), colour ='black',position = 'dodge') +
   theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
 ```
+
 Con este gráfico de barras de la temperatura mínima se puede corroborar lo dicho previamente con el de puntos ya que, se ve una mayor diferencia entre comunidades autónomas. También se aprecia que, la barra azul (la de 2020) es la más alta de las 3 en prácticamente todas las comunidades es decir, que en 2020 hubo un aumento de la temperatura mínima respecto al resto de años.
 
-#Relación entre las dos anteriores
+# 3. Relación entre las dos anteriores
 
 ```{r echo = TRUE }
 union <- merge(x = datos, y = tabladefinitiva, by=c('fecha', 'ComunidadesAutónomas'))
@@ -241,12 +259,102 @@ gr_max <-  ggplot(union, aes(x = tmax, y = Total))+
 gr_max
 ```
 
+En el este último gráfico se observa la relación entre la temperatura máxima por comunidades autónomas, respecto al total de defunciones por enfermedad cardiovascular para cada año. Tanto en este gráfico como sacando la información necesaria de los anteriores, se puede observar una relación inversamente proporcional entre el total de defunciones y la temperatura máxima respecto a cada año, ya que, en aquellas comunidades donde han existido un mayor número de muertes, la tempertarura máxima es menor.
 
 
-
-
-
-#poder cargar los datos si falla la página
-```{r , echo=FALSE}
-load("Input_objects/objetos_descargados.RData")
+```{r echo=TRUE}
+gr_min <- ggplot(union, aes(x = tmin, y = Total))+
+  geom_point(aes(colour=factor(ComunidadesAutónomas)))+
+  geom_smooth(method= 'lm')+
+  theme_bw()+
+  facet_wrap(~fecha, nrow=1)
+gr_min
 ```
+
+En el este último gráfico se observa la relación entre la temperatura mínima por comunidades autónomas, respecto al total de defunciones por enfermedad cardiovascular para cada año. Tanto en este gráfico como sacando la información necesaria de los anteriores, se puede observar una relación directamente proporcional entre el total de defunciones y la temperatura mínima respecto a cada año, ya que, en aquellas comunidades donde han existido un mayor número de muertes, la tempertarura mínima es menor.
+
+
+
+# 4. Conclusiones
+Por lo tanto, teniendo en cuenta toda la información obtenida previamente, se puede llegar a la conclusión de que en aquellas zonas donde tanto la temperatura máxima es muy alta como la mínima muy baja existe un mayor número de muertes. Esto puede ser debido al sedentarismo que esto provoca ya que tanto si hace mucho frío como si ocurre lo contrario se sale menos de casa.
+
+# 5. Información adicional
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+ 
+
+climatestripes_station("2331", start = 2015, end = 2021) + theme(plot.title = element_text(size = 10))
+
+
+```
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+ 
+
+
+climatestripes_station("1505", start = 2015, end = 2021) + theme(plot.title = element_text(size = 10))
+
+
+```
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+ 
+
+
+climatestripes_station("1014", start = 2015, end = 2021) + theme(plot.title = element_text(size = 10))
+
+```
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+ 
+windrose_days(
+  "2331",
+  start = "2010-01-01",
+  end = "2020-12-31",
+  n_speeds = 5,
+  speed_cuts = c(2.5, 5, 7.5, 10, 12.5, 15)
+) +
+  theme(plot.title = element_text(size = 10))
+```
+
+
+```{r include=FALSE}
+aemet_last_obs("9434")
+
+all_stations <- aemet_last_obs(return_sf = TRUE)
+# Last hour
+all_last <-
+  all_stations %>% filter(fint == all_stations[["fint"]][1])
+
+last_hour <- max(all_last$fint)
+
+```
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+ 
+
+
+ggplot(all_last) +
+  geom_sf(aes(colour = ta),
+          shape = 19,
+          size = 2,
+          alpha = 0.5
+  ) +
+  labs(
+    title = "Temperatura en España",
+    subtitle = last_hour,
+    color = "Max temp.\n(celsius)",
+    caption = "Source: AEMET"
+  ) +
+  scale_colour_gradientn(
+    colours = hcl.colors(10, "RdBu", rev = TRUE, alpha = 0.5),
+    guide = "legend"
+  ) +
+  guides(colour = guide_legend(n.breaks = 10)) +
+  theme_bw() +
+  theme(
+    panel.border = element_blank(),
+    plot.title = element_text(face = "bold"),
+    plot.subtitle = element_text(face = "italic")
+  )
+```
+

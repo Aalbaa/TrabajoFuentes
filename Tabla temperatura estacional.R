@@ -204,6 +204,12 @@ ggplot(data = tabladefinitiva, aes(x =ComunidadesAutónomas , y = tmax))+
   labs(x = "tmax", y = "ComunidadesAutónomas",title = 'Temperatura máxima por comunidad autonoma')+
   theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
 
+#grafica temperatura mínima por comunidad autonoma
+ggplot(data = tabladefinitiva, aes(x =ComunidadesAutónomas , y = tmin))+
+  geom_point(aes(colour = fecha))+
+  labs(x = "tmax", y = "ComunidadesAutónomas",title = 'Temperatura mínima por comunidad autonoma')+
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
+
 
 #grafica de barras temperatura máxima por comunidad autonoma
 ggplot(tabladefinitiva, aes(x = ComunidadesAutónomas, y = tmax )) +
@@ -214,8 +220,9 @@ ggplot(tabladefinitiva, aes(x = ComunidadesAutónomas, y = tmax )) +
 #grafica de barras temperatura mínima por comunidad autonoma
 ggplot(tabladefinitiva, aes(x = ComunidadesAutónomas, y = tmin )) +
   geom_bar(stat = 'identity', aes(fill = factor(fecha)), colour ='black',position = 'dodge') +
-  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))+
-  coord_polar()
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
+
+
 
 
 

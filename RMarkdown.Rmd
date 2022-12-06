@@ -37,23 +37,50 @@ Aparte, en la págine INE de donde veinen los datos, hemos cogido las imagenes d
 
 ## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r cars}
-summary(cars)
+#Relación temeperaturas máx y mín por Comuniades
+Relacionando los datos de la temperatura máxima y mínima, mediante distintos gráficos, se puede observar como varía la temperatura en función de la comunidad autónoma.
+```{r echo=TRUE}
+  ggplot(data = tabladefinitiva, aes(x =ComunidadesAutónomas , y = tmax))+
+  geom_point(aes(colour = fecha))+
+  labs(x = "tmax", y = "ComunidadesAutónomas",title = 'Temperatura máxima por comunidad autonoma')+
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
+```
+En este primer gráfico de puntos, se observa la temperatura máxima por comunidad autónoma entre 2018 y 2020, y se puede ver que en muchas comunidades la temperatura máxima ha aumentado a lo largo del tiempo.
+
+```{r echo=TRUE}
+  ggplot(tabladefinitiva, aes(x = ComunidadesAutónomas, y = tmax )) +
+  geom_bar(stat = 'identity', aes(fill = factor(fecha)), colour ='black',position = 'dodge') +
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
 ```
 
-## Including Plots
+Como se ha comentado en el gráfico de puntos, con este gráfico de barras, efectivamnete se puede observar una subida de temperatura en todas las comunidades autónomas en 2019 y 2020 respecto a 2018
 
-You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r echo=TRUE}
+  ggplot(data = tabladefinitiva, aes(x =ComunidadesAutónomas , y = tmin))+
+  geom_point(aes(colour = fecha))+
+  labs(x = "tmax", y = "ComunidadesAutónomas",title = 'Temperatura mínima por comunidad autonoma')+
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
 ```
+En este gráfico de puntos, se observa la temperatura minima por comunidad autónoma entre 2018 y 2020, y se puede ver que, existe mucha diferencia en la temperatura mínima entre unas comunidades y otras. A su vez, también se aprecia una subida de temperatura en prácticamente todas las comunidades en el último año.
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r echo=TRUE}
+  ggplot(tabladefinitiva, aes(x = ComunidadesAutónomas, y = tmin )) +
+  geom_bar(stat = 'identity', aes(fill = factor(fecha)), colour ='black',position = 'dodge') +
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
+```
+Con este gráfico de barras de la temperatura mínima se puede corroborar lo dicho previamente con el de puntos ya que, se ve una mayor diferencia entre comunidades autónomas. También se aprecia que, la barra azul (la de 2020) es la más alta de las 3 en prácticamente todas las comunidades es decir, que en 2020 hubo un aumento de la temperatura mínima respecto al resto de años.
+
+#Relación entre las dos anteriores
+
+
+
+
+
+
 
 #poder cargar los datos si falla la página
 ```{r , echo=FALSE}

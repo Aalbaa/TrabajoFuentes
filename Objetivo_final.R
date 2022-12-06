@@ -135,12 +135,11 @@ tabla2020 <- cbind(tmaxmin2020,fecha=c(2020))
 #se juntan las 3 tablas de los 3 años distintos
 tabla1819 = rbind(tabla2018, tabla2019)
 tabladefinitiva = rbind(tabla1819, tabla2020)
-#View (tabladefinitiva)
+View (tabladefinitiva)
 
 
 
 
 #unión tablas
-union <- merge(x = datos, y = tabladefinitiva, by = c('ComunidadesAutónomas', 'fecha') )
-View (union)
-union
+union <- merge(x = datos, y = tabladefinitiva, by=c('fecha'))
+View(union)

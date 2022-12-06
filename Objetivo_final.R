@@ -162,5 +162,22 @@ View (tabladefinitiva)
 
 
 #unión tablas
-union <- merge(x = datos, y = tabladefinitiva, by=c('fecha'))
+union <- merge(x = datos, y = tabladefinitiva, by=c('fecha', 'ComunidadesAutónomas'))
 View(union)
+
+#gráfica
+library (tidyverse)
+gr_max <-  ggplot(union, aes(x = tmax, y = Total))+
+  geom_point(aes(colour=factor(ComunidadesAutónomas)))+
+  geom_smooth(method= 'lm')+
+  theme_bw()+
+  facet_wrap(~fecha, nrow=1)
+gr_max
+
+gr_min <- ggplot(union, aes(x = tmin, y = Total))+
+  geom_point(aes(colour=factor(ComunidadesAutónomas)))+
+  geom_smooth(method= 'lm')+
+  theme_bw()+
+  facet_wrap(~fecha, nrow=1)
+gr_min
+  

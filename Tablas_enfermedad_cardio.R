@@ -50,3 +50,4 @@ gr_barras <- ggplot(datos, aes( x= Comunidades, y = Total))+
 
 gr_barras
 
+

@@ -19,9 +19,9 @@ summary(data_observation)
 
 
 ## Get daily/annual climatology values, tabla completa
-data_daily <- aemet_daily_period_all(start = 2020, end = 2021) #MIRAR FECHAS COMPARAR CON LO DE ALBA
+data_daily <- aemet_daily_period_all(start = 2018, end = 2020) 
 data_daily
-#View(data_daily) #da error en html
+View(data_daily) #da error en html
 
 
 # Plot a climate stripes graph for a period of years for a station
@@ -65,7 +65,7 @@ ggplot(all_last) +
           alpha = 0.5
   ) +
   labs(
-    title = "Temperature in Spain",
+    title = "Temperatura en España",
     subtitle = last_hour,
     color = "Max temp.\n(celsius)",
     caption = "Source: AEMET"
@@ -83,11 +83,6 @@ ggplot(all_last) +
   )
 
 
-#Para ver la tabla
-stations
-str(stations)
-View(stations) #NO USAR
-summary(stations)
 
 #se crea una nueva columna denomicada ccaa a partir de la columna provincia
 tablaComunidades <- data_daily %>% 
@@ -117,22 +112,113 @@ tablaComunidades <- data_daily %>%
                      ))
 
 View(tablaComunidades)
-  
-#se agrupan los valores por comunidades autonomas (calculando el valor medio)
-tablasAgrupamientos <- tablaComunidades %>%
-  group_by(ComunidadesAutónomas) %>%
-  summarise(across(c(tmax,tmin, tmed,altitud), ~ mean(.x, na.rm = TRUE)))
 
-View(tablasAgrupamientos)
+
+#install.packages('lubridate',dependencies=TRUE)
+library(lubridate)
+
+
+#filtrar tabla comunidadesAutonomas solo para 2018
+fecha2018 <- select(filter(tablaComunidades, year(tablaComunidades$fecha)==2018 ), ComunidadesAutónomas, fecha,tmax,tmin)
+#View(fecha2018)
+
+#Crear la media de tmax y tmin por comunidad autonoma en 2018
+tmax2018<-aggregate(tmax~ComunidadesAutónomas, data=fecha2018, mean)
+tmin2018<-aggregate(tmin~ComunidadesAutónomas, data=fecha2018, mean)
+
+#se juntan ambas tablas para tener las comunidades, tmax y tmin
+tmaxmin2018<-merge(x = tmax2018, y = tmin2018)
+
+#se crea la columna fecha poniendo 2018
+tabla2018 <- cbind(tmaxmin2018,fecha=c(2018))
+View(tabla2018)
+
+
+
+
+
+
+
+
+
+#filtrar tabla comunidadesAutonomas solo para 2019
+fecha2019 <- select(filter(tablaComunidades, year(tablaComunidades$fecha)==2019 ), ComunidadesAutónomas, fecha,tmax,tmin)
+#View(fecha2019)
+
+#Crear la media de tmax y tmin por comunidad autonoma en 2019
+tmax2019<-aggregate(tmax~ComunidadesAutónomas, data=fecha2019, mean)
+tmin2019<-aggregate(tmin~ComunidadesAutónomas, data=fecha2019, mean)
+
+#se juntan ambas tablas para tener las comunidades, tmax y tmin
+tmaxmin2019<-merge(x = tmax2019, y = tmin2019)
+
+#se crea la columna fecha poniendo 2019
+tabla2019 <- cbind(tmaxmin2019,fecha=c(2019))
+View(tabla2019)
+
+
+
+
+
+
+
+#filtrar tabla comunidadesAutonomas solo para 2020
+fecha2020 <- select(filter(tablaComunidades, year(tablaComunidades$fecha)==2020 ), ComunidadesAutónomas, fecha,tmax,tmin)
+#View(fecha2020)
+
+#Crear la media de tmax y tmin por comunidad autonoma en 2020
+tmax2020<-aggregate(tmax~ComunidadesAutónomas, data=fecha2020, mean)
+tmin2020<-aggregate(tmin~ComunidadesAutónomas, data=fecha2020, mean)
+
+#se juntan ambas tablas para tener las comunidades, tmax y tmin
+tmaxmin2020<-merge(x = tmax2020, y = tmin2020)
+
+#se crea la columna fecha poniendo 2020
+tabla2020 <- cbind(tmaxmin2020,fecha=c(2020))
+View(tabla2020)
+
+
+
+
+
+#se juntan las 3 tablas de los 3 años distintos
+tabla1819 = rbind(tabla2018, tabla2019)
+tabladefinitiva = rbind(tabla1819, tabla2020)
+View (tabladefinitiva)
+
+
+
+
+
+
+#se agrupan los valores por comunidades autonomas (calculando el valor medio) PRUEBA
+# tablasAgrupamientos <- tablaComunidades %>%
+#   group_by(ComunidadesAutónomas) %>%
+#   summarise(across(c(tmax,tmin, tmed,altitud,fecha), ~ mean(.x, na.rm = TRUE)))
+# 
+# View(tablasAgrupamientos)
 
 #grafica temperatura maxima por comunidad autonoma
-ggplot(data = tablasAgrupamientos, aes(x =tmax , y = ComunidadesAutónomas))+
-  geom_point(aes(colour = ComunidadesAutónomas))+
-  labs(x = "Promedio Temperatura", y = "Promedio riqueza de especies",title = 'Temperatura maxima por comunidad autonoma')
+ggplot(data = tabladefinitiva, aes(x =ComunidadesAutónomas , y = tmax))+
+  geom_point(aes(colour = fecha))+
+  labs(x = "tmax", y = "ComunidadesAutónomas",title = 'Temperatura máxima por comunidad autonoma')+
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
 
-#grafica de barras temperatura maxima por comunidad autonoma
-ggplot(data = tablasAgrupamientos, aes(x = tmax), y = ComunidadesAutónomas) +
-  geom_bar()
+
+#grafica de barras temperatura máxima por comunidad autonoma
+ggplot(tabladefinitiva, aes(x = ComunidadesAutónomas, y = tmax )) +
+  geom_bar(stat = 'identity', aes(fill = factor(fecha)), colour ='black',position = 'dodge') +
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
+
+
+#grafica de barras temperatura mínima por comunidad autonoma
+ggplot(tabladefinitiva, aes(x = ComunidadesAutónomas, y = tmin )) +
+  geom_bar(stat = 'identity', aes(fill = factor(fecha)), colour ='black',position = 'dodge') +
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))+
+  coord_polar()
+
+
+
 
 
 

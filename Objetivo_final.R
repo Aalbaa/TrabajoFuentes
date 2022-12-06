@@ -10,7 +10,7 @@ datos <- select(enf_cardio2_0, 'Causa de defunción', 'Comunidades y Ciudades Au
 
 colnames(datos) <- c ('Causa_Defuncion' , 'ComunidadesAutónomas' , 'fecha' , 'Total')
 str(datos)
-view(datos)
+View(datos)
 
 datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '01 Andalucía'] <- 'ANDALUCIA'
 datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '02 Aragón'] <- 'ARAGON'

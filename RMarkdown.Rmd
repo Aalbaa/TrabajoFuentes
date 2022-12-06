@@ -78,7 +78,15 @@ En este gráfico de puntos, se observa la temperatura minima por comunidad autó
 Con este gráfico de barras de la temperatura mínima se puede corroborar lo dicho previamente con el de puntos ya que, se ve una mayor diferencia entre comunidades autónomas. También se aprecia que, la barra azul (la de 2020) es la más alta de las 3 en prácticamente todas las comunidades es decir, que en 2020 hubo un aumento de la temperatura mínima respecto al resto de años.
 
 #Relación entre las dos anteriores
-
+Para visualizar correctamente la relación entre enfermedades cardiovasculares y la temperatura por comunidades autónomas, se ha realizado la unión de ambas tablas (la temperatura y las enfermedades).
+```{r echo=TRUE}
+gr_max <-  ggplot(union, aes(x = tmax, y = Total))+
+  geom_point(aes(colour=factor(ComunidadesAutónomas)))+
+  geom_smooth(method= 'lm')+
+  theme_bw()+
+  facet_wrap(~fecha, nrow=1)
+gr_max
+```
 
 
 

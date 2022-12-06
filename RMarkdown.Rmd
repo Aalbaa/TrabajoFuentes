@@ -19,11 +19,34 @@ knitr::opts_chunk$set(echo = TRUE)
 library(readr)
 enf_cardio2_0 <- read_delim("INPUT.DATA/enf_cardio2.0.csv", 
                             delim = ";", escape_double = FALSE, trim_ws = TRUE)
+str(enf_cardio2_0)
 
 library(dplyr)
 datos <- select(enf_cardio2_0, 'Causa de defunción', 'Comunidades y Ciudades Autónomas', 'Periodo', 'Total')
 
-colnames(datos) <- c ('Causa_Defuncion' , 'Comunidades' , 'fecha' , 'Total')
+colnames(datos) <- c ('Causa_Defuncion' , 'ComunidadesAutónomas' , 'fecha' , 'Total')
+str(datos)
+
+
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '01 Andalucía'] <- 'ANDALUCIA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '02 Aragón'] <- 'ARAGON'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '03 Asturias, Principado de'] <- 'ASTURIAS'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '04 Balears, Illes'] <- 'ISLAS BALEARES'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '05 Canarias'] <- 'ISLAS CANARIAS'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '06 Cantabria'] <- 'CANTABRIA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '07 Castilla y León'] <- 'CyL'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '08 Castilla - La Mancha'] <- 'CLM'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '09 Cataluña'] <- 'CATALUÑA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '10 Comunitat Valenciana'] <- 'VALENCIA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '11 Extremadura'] <- 'EXTREMADURA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '12 Galicia'] <- 'GALICIA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '13 Madrid, Comunidad de'] <- 'MADRID'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '14 Murcia, Región de'] <- 'MURCIA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '15 Navarra, Comunidad Foral de'] <- 'NAVARRA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '16 País Vasco'] <- 'PAIS VASCO'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '17 Rioja, La'] <- 'LA RIOJA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '18 Ceuta'] <- 'CEUTA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '19 Melilla'] <- 'MELILLA'
 
 library(tidyverse)
 ```
@@ -31,12 +54,27 @@ library(tidyverse)
 
 Para poder ver si existe cierta relación entre las comunidades autónomas y muertes por enfermedades cardiovasaculares, hemos cogido los datos con respecto a los años 2018, 2019 y 2020 y hemos creado un gráfico de barras.
 
+```{r echo = TRUE}
+
+final <-  ggplot(datos, aes(x = ComunidadesAutónomas , y = Total)) +
+  geom_point(aes (colour = factor(fecha))) +
+  geom_smooth() +
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1)) 
+
+
+```
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+plot(final)
+
+```
+
 ```{r echo=TRUE}
-gr_barras <- ggplot(datos, aes( x= Comunidades, y = Total))+
+gr_barras <- ggplot(datos, aes( x= ComunidadesAutónomas, y = Total))+
   geom_bar(aes(fill=factor(fecha)), stat = 'identity', position = 'dodge')+
   theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
 ```
-```{r gr_barras, echo = FALSE}
+```{r echo = FALSE, message = FALSE, warning = FALSE}
 plot(gr_barras)
 
 ```
@@ -48,15 +86,23 @@ Aparte, en la págine INE, de donde veinen los datos, hemos cogido las imágenes
 <img src="./Input_images/mapa2018.png" alt="Mapa 2018">
 </p>
 </div>
+<div>
+<p style = 'text-align:center;'>
+<img src="./Input_images/mapa2019.png" alt="Mapa 2019">
+</p>
+</div>
+<div>
+<p style = 'text-align:center;'>
+<img src="./Input_images/mapa2020.png" alt="Mapa 2020">
+</p>
+</div>
+
 
 
 **Conclusión** Se puede observar que ha habido un incremento de muertes en la zona sur y centro oeste mientras que en la zona noreste se aprecia una disminución
 
-## R Markdown
 
-
-
-#Relación temeperaturas máx y mín por Comuniades
+#Relación temperaturas máx y mín por Comuniades
 
 ```{r include = FALSE}
 library(remotes)
@@ -195,7 +241,7 @@ gr_max <-  ggplot(union, aes(x = tmax, y = Total))+
 gr_max
 ```
 
-Como se puede apreciar en este último gráfico, la relación que existe entre el total de defunciones por enfermedades cardiovasculares, la temperatura máxima y las comunidades autónomas para cada año, 
+
 
 
 

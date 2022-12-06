@@ -141,4 +141,6 @@ tabladefinitiva = rbind(tabla1819, tabla2020)
 
 
 #unión tablas
-union <- merge(x = datos, y = tabladefinitiva, )
+union <- merge(x = datos, y = tabladefinitiva, by = c('ComunidadesAutónomas', 'fecha') )
+View (union)
+union

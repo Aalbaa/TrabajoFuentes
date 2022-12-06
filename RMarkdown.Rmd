@@ -178,7 +178,6 @@ union <- merge(x = datos, y = tabladefinitiva, by=c('fecha', 'ComunidadesAutóno
 ```
 
 
-
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(DT)
 DT::datatable(union)

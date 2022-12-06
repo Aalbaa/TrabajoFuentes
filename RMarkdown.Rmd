@@ -1,5 +1,5 @@
 ---
-title: "RMarkdown"
+title: "Enfermedades cardiovasculares y el tiempo"
 author: "Nuria Martinez y Alba Sanz"
 date: "2022-11-09"
 output: html_document
@@ -8,6 +8,32 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+#Objetivos
+##Relación comunidades autónomas con defunción por enfermedades cardiacas
+##Relación temeperaturas máx y mín por Comuniades
+##relación entre las dos anteriores
+
+# Relación comunidades autónomas con defunción por enfermedades cardiacas
+
+Para poder ver si existe cierta relación entre las comunidaes autónomas y muertes por enfermdades cardiovasaculares, hemos cogido los datos con respecto a los años 2018, 2019 y 2020 y hemos creado un gráfico de barras.
+
+
+```{r gr_barras, echo = FALSE}
+gr_barras <- ggplot(datos, aes( x= Comunidades, y = Total))+
+  geom_bar(aes(fill=factor(Periodo)), stat = 'identity', position = 'dodge')+
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
+
+gr_barras
+
+```
+
+Aparte, en la págine INE de donde veinen los datos, hemos cogido las imagenes del mapa de España con respecto a cada año teniendo una idea más visual de los cambios q ha habido
+
+! [Mapa 2018](Input_objects/mapa2018.npg){withd = 60%}
+! [Mapa 2019](mapa2019.npg ){whithd = 60%}
+! [Mapa 2020](mapa2020.npg ){withd = 60%}
+
+**Conclusión** 
 
 ## R Markdown
 

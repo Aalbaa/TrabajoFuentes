@@ -13,6 +13,7 @@ datos <- select(enf_cardio2_0, 'Causa de defunción', 'Comunidades y Ciudades Au
 colnames(datos) <- c ('Causa_Defuncion' , 'Comunidades' , 'Periodo' , 'Total')
 str(datos)
 
+
 library(tidyverse)
 
 #grafica 2020

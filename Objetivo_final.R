@@ -10,6 +10,27 @@ datos <- select(enf_cardio2_0, 'Causa de defunción', 'Comunidades y Ciudades Au
 
 colnames(datos) <- c ('Causa_Defuncion' , 'ComunidadesAutónomas' , 'fecha' , 'Total')
 str(datos)
+view(datos)
+
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '01 Andalucía'] <- 'ANDALUCIA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '02 Aragón'] <- 'ARAGON'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '03 Asturias, Principado de'] <- 'ASTURIAS'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '04 Balears, Illes'] <- 'ISLAS BALEARES'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '05 Canarias'] <- 'ISLAS CANARIAS'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '06 Cantabria'] <- 'CANTABRIA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '07 Castilla y León'] <- 'CyL'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '08 Castilla - La Mancha'] <- 'CLM'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '09 Cataluña'] <- 'CATALUÑA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '10 Comunitat Valenciana'] <- 'VALENCIA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '11 Extremadura'] <- 'EXTREMADURA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '12 Galicia'] <- 'GALICIA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '13 Madrid, Comunidad de'] <- 'MADRID'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '14 Murcia, Región de'] <- 'MURCIA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '15 Navarra, Comunidad Foral de'] <- 'NAVARRA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '16 País Vasco'] <- 'PAIS VASCO'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '17 Rioja, La'] <- 'LA RIOJA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '18 Ceuta'] <- 'CEUTA'
+datos$ComunidadesAutónomas[datos$ComunidadesAutónomas== '19 Melilla'] <- 'MELILLA'
 
 
 
@@ -141,5 +162,22 @@ View (tabladefinitiva)
 
 
 #unión tablas
-union <- merge(x = datos, y = tabladefinitiva, by=c('fecha'))
+union <- merge(x = datos, y = tabladefinitiva, by=c('fecha', 'ComunidadesAutónomas'))
 View(union)
+
+#gráfica
+library (tidyverse)
+gr_max <-  ggplot(union, aes(x = tmax, y = Total))+
+  geom_point(aes(colour=factor(ComunidadesAutónomas)))+
+  geom_smooth(method= 'lm')+
+  theme_bw()+
+  facet_wrap(~fecha, nrow=1)
+gr_max
+
+gr_min <- ggplot(union, aes(x = tmin, y = Total))+
+  geom_point(aes(colour=factor(ComunidadesAutónomas)))+
+  geom_smooth(method= 'lm')+
+  theme_bw()+
+  facet_wrap(~fecha, nrow=1)
+gr_min
+  

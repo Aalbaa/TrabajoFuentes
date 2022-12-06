@@ -30,4 +30,15 @@ ggplot(datos, aes(x = Comunidades, y = Total, fill = Periodo[3])) +
   geom_bar(stat = 'identity') +
   theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
 
+#grafica dispersión todos los datos
+final <-  ggplot(datos, aes(x = Comunidades , y = Total)) +
+  geom_point(aes (colour = factor(Periodo))) +
+  geom_smooth() +
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1)) 
 
+final
+
+ggplot(datos, aes(x = Comunidades, y = Total, fill = Periodo)) +
+  geom_bar(stat = 'identity') +
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1))
+  
